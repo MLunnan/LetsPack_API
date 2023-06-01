@@ -72,5 +72,23 @@ namespace LetsPack.Services
                 throw new Exception($"No item with id: {id} could be found");
             }
         }
+        public async Task<Item> GetItemById(int id)
+        {
+            var selectedItem = await _ctx.items!.FindAsync(id);
+            Item item = new Item();
+            if (item != null)
+            {
+                item.Name = selectedItem.Name;
+                item.Description = selectedItem.Description;
+                item.Category = selectedItem.Category;
+                item.Store = selectedItem.Store;
+                item.Price = selectedItem.Price;
+                return item;
+            }
+            else
+            {
+                throw new Exception($"No item with id: {id} could be found");
+            }
+        }
     }
 }
